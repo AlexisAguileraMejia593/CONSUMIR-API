@@ -1,0 +1,95 @@
+﻿@model ML.Cine
+@{
+    ViewData["Title"] = "Mapa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #map {
+        height: 300px;
+    }
+</style>
+<script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+        key: "AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw",
+        // Add other bootstrap parameters as needed, using camel case.
+        // Use the 'v' parameter to indicate the version to load (alpha, beta, weekly, etc.)
+    });
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<h3>My Google Maps Demo</h3>
+<div id="map" class="border-top border-secondary" border-3></div>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+@section Scripts{
+    <script type="text/javascript">
+        let map;
+        let marker;
+        let markers = []; // Array to store the marker objects
+        async function initMap() {
+            const position = {
+                lat: 19.43057908889617,
+                lng: -99.16173851534197,
+            };
+            const { Map } = await google.maps.importLibrary("maps");
+            map = new Map(document.getElementById("map"), {
+                zoom: 4,
+                center: position,
+                mapId: "DEMO_MAP_ID",
+            });
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Presiona la locacion",
+                position: position,
+            });
+
+        @foreach (ML.Cine cine in Model.Cines)
+        {
+            <text>
+                        var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': '@cine.Direccion' }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                        markers.push(marker);
+                    }
+                });
+            </text>
+        }
+            }
+        initMap();
+    </script>
+}
+    <script>
+        window.onload = function () {
+
+            var options = {
+                title: {
+                    text: "Desktop OS Market Share in 2017"
+                },
+                subtitles: [{
+                    text: "As of November, 2017"
+                }],
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                    { y: @Model.estadistica.Norte, label: "Norte" },
+                    { y: @Model.estadistica.Sur, label: "Sur" },
+                    { y: @Model.estadistica.Este, label: "Este" },
+                    { y: @Model.estadistica.Oeste, label: "Oeste" }
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+        }
+    </script>

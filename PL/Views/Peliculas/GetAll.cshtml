@@ -1,0 +1,30 @@
+﻿@model Movies
+@{
+    ViewData["Title"] = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @foreach (Movies movies in Model.Peliculas)
+    {
+        <div class="col-md-4 col-sm-6">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@movies.poster_path" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@movies.title</h5>
+                    <p class="card-text">@movies.overview</p>
+
+                <p class="card-text"><small class="text-muted">@movies.release_date</small></p>
+                <p><strong>Popularity:</strong> @movies.popularity</p>
+                <p><strong>Vote Average:</strong>@movies.vote_average</p>
+                <p><strong>Vote Count:</strong> @movies.vote_count</p>
+                <p><strong>Adult:</strong> @movies.adult</p>
+                <p><strong>Original Language:</strong>@movies.original_language</p>
+                    <button class="btn btn-secondary"> Ver <i class="fa-solid fa-circle-play"></i></button>
+                    <a href="@Url.Action("AñadirFavoritos", "Peliculas", new {IdMovie = movies.id})" class="btn btn-outline-danger"><i class="fa-regular fa-heart"></i> Favorito </a>
+                    <button class="btn btn-outline-warning"> Calificar <i class="fa-regular fa-comment"></i></button>
+                </div>
+            </div>
+        </div>
+    }
+    </div>

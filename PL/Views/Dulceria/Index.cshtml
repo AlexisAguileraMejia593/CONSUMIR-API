@@ -1,0 +1,94 @@
+﻿@model ML.Dulceria
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src=" https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<style>
+    section {
+        display: flex;
+    }
+
+    .Tarjeta1 .Contenido1 {
+        width: 338px;
+        height: 430px;
+        border-radius: 20px;
+        box-shadow: 0 10px 12px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        margin: 30px;
+    }
+
+        .Tarjeta1 .Contenido1 img {
+            width: 360px;
+            height: 220px;
+        }
+
+    .s {
+        font-family: arial;
+        font-size: 12px;
+        padding-left: 20px;
+        padding-top: 35px;
+    }
+
+    p {
+        color: orange;
+    }
+
+    .fondo {
+        padding-bottom: 21px;
+        border-bottom: solid 1px #bdbdbd;
+    }
+
+    .fondo1 {
+        padding-bottom: 41px;
+        border-bottom: solid 1px #bdbdbd;
+    }
+
+    .f {
+        font-family: arial;
+        font-size: 12px;
+        padding-left: 20px;
+        padding-top: 30px;
+    }
+
+    .my-button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .my-button:hover {
+            background-color: #45a049;
+        }
+
+        .my-button:active {
+            background-color: #3e8e41;
+        }
+
+</style>
+<section>
+<div class="row">
+    @foreach (ML.Dulceria dulceria in Model.Dulcerias)
+    {
+    <div class="col-md-4 col-sm-6">
+    <div class="Tarjeta1">
+        <div class="Contenido1">
+            <div class="fondo1">
+            <img src="data:image/png;base64, @dulceria.Imagen" />
+            </div>
+            <div class="s">
+                <h2>@dulceria.Nombre</h2>
+                <h3>$@dulceria.Precio</h3>
+            </div>
+                        <a class="my-button" href="@Url.Action("AddCarrito","Dulceria", new {idDulceria = dulceria.IdDulceria})">
+                            <i class="fa-solid fa-cart-shopping fa-bounce" style="color: #6a042b;"></i>
+                        </a>
+        </div>
+    </div>
+            </div>
+    }
+</div>
+</section>
