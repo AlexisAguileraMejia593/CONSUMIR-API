@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.IO.Image;
+using iText.Kernel.Pdf;
 
 namespace PL.Controllers
 {
@@ -90,7 +95,7 @@ namespace PL.Controllers
             }
 
         }
-/*        public ActionResult GenerarPDF()
+        public ActionResult GenerarPDF()
         {
             ML.Carrito carrito = new ML.Carrito();
             carrito.Carritos = new List<object>();
@@ -106,7 +111,7 @@ namespace PL.Controllers
                     document.Add(new Paragraph("Resumen de Compra"));
 
                     // Crear la tabla para mostrar la lista de objetos
-                    Table table = new Table(5); // 5 columnas
+                    iText.Layout.Element.Table table = new iText.Layout.Element.Table(5); // 5 columnas
                     table.SetWidth(UnitValue.CreatePercentValue(100)); // Ancho de la tabla al 100% del documento
 
                     // Añadir las celdas de encabezado a la tabla
@@ -148,6 +153,6 @@ namespace PL.Controllers
                 FileDownloadName = "ReporteProductos.pdf"
             };
         }
-*/
+
     }
 }
