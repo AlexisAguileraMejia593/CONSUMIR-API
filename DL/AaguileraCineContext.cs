@@ -25,13 +25,13 @@ public partial class AaguileraCineContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-CHR9HTDV; Database=AAguileraCine; TrustServerCertificate=True; User ID=sa; Password=pass@word1;");
+        => optionsBuilder.UseSqlServer("Server=AlexisAM99; Database=AAguileraCine; TrustServerCertificate=True; User ID=sa; Password=pass@word1;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Cine>(entity =>
         {
-            entity.HasKey(e => e.IdCine).HasName("PK__Cine__394B724B1EBC0D43");
+            entity.HasKey(e => e.IdCine).HasName("PK__Cine__394B724B7FBCABF5");
 
             entity.ToTable("Cine");
 
@@ -45,12 +45,12 @@ public partial class AaguileraCineContext : DbContext
 
             entity.HasOne(d => d.IdZonaNavigation).WithMany(p => p.Cines)
                 .HasForeignKey(d => d.IdZona)
-                .HasConstraintName("FK__Cine__Ventas__1273C1CD");
+                .HasConstraintName("FK__Cine__IdZona__45F365D3");
         });
 
         modelBuilder.Entity<Dulcerium>(entity =>
         {
-            entity.HasKey(e => e.IdDulceria).HasName("PK__Dulceria__C47522069E33FA09");
+            entity.HasKey(e => e.IdDulceria).HasName("PK__Dulceria__C47522064DBFA801");
 
             entity.Property(e => e.Imagen).IsUnicode(false);
             entity.Property(e => e.Nombre)
@@ -61,7 +61,7 @@ public partial class AaguileraCineContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF97EEDBBBB3");
+            entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF97066266AE");
 
             entity.ToTable("Usuario");
 
@@ -78,7 +78,7 @@ public partial class AaguileraCineContext : DbContext
 
         modelBuilder.Entity<Zona>(entity =>
         {
-            entity.HasKey(e => e.IdZona).HasName("PK__Zona__F631C12DB03C4A06");
+            entity.HasKey(e => e.IdZona).HasName("PK__Zona__F631C12DF2EA40E3");
 
             entity.ToTable("Zona");
 
